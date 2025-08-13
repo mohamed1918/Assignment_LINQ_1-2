@@ -35,13 +35,29 @@
             #endregion
 
             #region Element Operators
-            var e1 = products.First(p => p.UnitsInStock == 0);
-            var e2 = products.FirstOrDefault(p => p.UnitPrice > 1000);
-            var e3 = arrNumbers.Where(n => n > 5).Skip(1).First();
+            //var e1 = products.First(p => p.UnitsInStock == 0);
+            //var e2 = products.FirstOrDefault(p => p.UnitPrice > 1000);
+            //var e3 = arrNumbers.Where(n => n > 5).Skip(1).First();
+
+            //Console.WriteLine($"First out of stock: {e1.ProductName}");
+            //Console.WriteLine($"First price > 1000: {(e2 != null ? e2.ProductName : "null")}");
+            //Console.WriteLine($"Second number > 5: {e3}");
+            #endregion
+
+            #region Aggregate Operators
+            var a1 = arrNumbers.Count(n => n % 2 != 0);
+            var a2 = customers.Select(c => new { c.CustomerName, Orders = c.Orders.Count() });
+            var a3 = products.GroupBy(p => p.Category).Select(g => new { g.Key, Count = g.Count() });
+            var a4 = arrNumbers.Sum();
+            var a5 = dictionaryWords.Sum(w => w.Length);
+            var a6 = dictionaryWords.Min(w => w.Length);
+            var a7 = dictionaryWords.Max(w => w.Length);
+            var a8 = dictionaryWords.Average(w => w.Length);
             
-            Console.WriteLine($"First out of stock: {e1.ProductName}");
-            Console.WriteLine($"First price > 1000: {(e2 != null ? e2.ProductName : "null")}");
-            Console.WriteLine($"Second number > 5: {e3}");
+            Console.WriteLine($"Odd count: {a1}");
+            foreach (var x in a2) Console.WriteLine($"{x.CustomerName}: {x.Orders}");
+            foreach (var x in a3) Console.WriteLine($"{x.Key}: {x.Count}");
+            Console.WriteLine($"Sum: {a4}, Total chars: {a5}, Min: {a6}, Max: {a7}, Avg: {a8:F2}");
             #endregion
 
 
