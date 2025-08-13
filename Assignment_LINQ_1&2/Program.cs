@@ -25,14 +25,25 @@
             #endregion
 
             #region Restriction Operators
-            var r1 = products.Where(p => p.UnitsInStock == 0);
-            var r2 = products.Where(p => p.UnitsInStock > 0 && p.UnitPrice > 3);
-            var r3 = digitNames.Select((n, i) => new { n, i }).Where(x => x.n.Length < x.i);
-         
-            Console.WriteLine(string.Join(", ", r1.Select(p => p.ProductName)));
-            Console.WriteLine(string.Join(", ", r2.Select(p => p.ProductName)));
-            Console.WriteLine(string.Join(", ", r3.Select(x => x.n)));
+            //var r1 = products.Where(p => p.UnitsInStock == 0);
+            //var r2 = products.Where(p => p.UnitsInStock > 0 && p.UnitPrice > 3);
+            //var r3 = digitNames.Select((n, i) => new { n, i }).Where(x => x.n.Length < x.i);
+
+            //Console.WriteLine(string.Join(", ", r1.Select(p => p.ProductName)));
+            //Console.WriteLine(string.Join(", ", r2.Select(p => p.ProductName)));
+            //Console.WriteLine(string.Join(", ", r3.Select(x => x.n)));
             #endregion
+
+            #region Element Operators
+            var e1 = products.First(p => p.UnitsInStock == 0);
+            var e2 = products.FirstOrDefault(p => p.UnitPrice > 1000);
+            var e3 = arrNumbers.Where(n => n > 5).Skip(1).First();
+            
+            Console.WriteLine($"First out of stock: {e1.ProductName}");
+            Console.WriteLine($"First price > 1000: {(e2 != null ? e2.ProductName : "null")}");
+            Console.WriteLine($"Second number > 5: {e3}");
+            #endregion
+
 
         }
     }
