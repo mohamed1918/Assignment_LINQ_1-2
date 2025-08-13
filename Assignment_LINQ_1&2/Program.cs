@@ -99,13 +99,25 @@
             #endregion
 
             #region Grouping Operators
-            var g1 = Enumerable.Range(0, 16).GroupBy(n => n % 5);
-            var g2 = dictionaryWords.GroupBy(w => w[0]);
-            var g3 = new[] { "from", "salt", "earn", "last", "near", "form" }.GroupBy(w => string.Concat(w.OrderBy(c => c)));
+            //var g1 = Enumerable.Range(0, 16).GroupBy(n => n % 5);
+            //var g2 = dictionaryWords.GroupBy(w => w[0]);
+            //var g3 = new[] { "from", "salt", "earn", "last", "near", "form" }.GroupBy(w => string.Concat(w.OrderBy(c => c)));
+
+            //foreach (var grp in g1) Console.WriteLine($"Remainder {grp.Key}: {string.Join(", ", grp)}");
+            //foreach (var grp in g2) Console.WriteLine($"{grp.Key}: {string.Join(", ", grp)}");
+            //foreach (var grp in g3) Console.WriteLine($"Anagram group: {string.Join(", ", grp)}");
+            #endregion
+
+            #region Transformation Operators
+            var t1 = products.Select(p => p.ProductName);
+            var t2 = new[] { "aPPLE", "BlUeBeRrY", "cHeRry" }.Select(w => new { Upper = w.ToUpper(), Lower = w.ToLower() });
+            var t3 = products.Select(p => new { p.ProductName, Price = p.UnitPrice });
+            var t4 = arrNumbers.Select((n, i) => new { Number = n, Match = n == i });
             
-            foreach (var grp in g1) Console.WriteLine($"Remainder {grp.Key}: {string.Join(", ", grp)}");
-            foreach (var grp in g2) Console.WriteLine($"{grp.Key}: {string.Join(", ", grp)}");
-            foreach (var grp in g3) Console.WriteLine($"Anagram group: {string.Join(", ", grp)}");
+            Console.WriteLine(string.Join(", ", t1));
+            foreach (var x in t2) Console.WriteLine($"Upper: {x.Upper}, Lower: {x.Lower}");
+            foreach (var x in t3) Console.WriteLine($"{x.ProductName}: {x.Price}");
+            foreach (var x in t4) Console.WriteLine($"Number {x.Number} matches index: {x.Match}");
             #endregion
 
         }
