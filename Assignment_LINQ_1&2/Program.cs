@@ -75,17 +75,27 @@
             #endregion
 
             #region Partitioning Operators
-            var p1 = customers.Where(c => c.Region == "du").SelectMany(c => c.Orders).Take(3);
-            var p2 = customers.Where(c => c.Region == "du").SelectMany(c => c.Orders).Skip(2);
-            var p3 = arrNumbers.TakeWhile((n, i) => n >= i);
-            var p4 = arrNumbers.SkipWhile(n => n % 3 != 0);
-            var p5 = arrNumbers.SkipWhile((n, i) => n >= i);
+            //var p1 = customers.Where(c => c.Region == "du").SelectMany(c => c.Orders).Take(3);
+            //var p2 = customers.Where(c => c.Region == "du").SelectMany(c => c.Orders).Skip(2);
+            //var p3 = arrNumbers.TakeWhile((n, i) => n >= i);
+            //var p4 = arrNumbers.SkipWhile(n => n % 3 != 0);
+            //var p5 = arrNumbers.SkipWhile((n, i) => n >= i);
+
+            //Console.WriteLine(string.Join(", ", p1.Select(o => o.OrderID)));
+            //Console.WriteLine(string.Join(", ", p2.Select(o => o.OrderID)));
+            //Console.WriteLine(string.Join(", ", p3));
+            //Console.WriteLine(string.Join(", ", p4));
+            //Console.WriteLine(string.Join(", ", p5));
+            #endregion
+
+            #region Quantifiers
+            var q1 = dictionaryWords.Any(w => w.Contains("ei"));
+            var q2 = products.GroupBy(p => p.Category).Where(g => g.Any(p => p.UnitsInStock == 0));
+            var q3 = products.GroupBy(p => p.Category).Where(g => g.All(p => p.UnitsInStock > 0));
             
-            Console.WriteLine(string.Join(", ", p1.Select(o => o.OrderID)));
-            Console.WriteLine(string.Join(", ", p2.Select(o => o.OrderID)));
-            Console.WriteLine(string.Join(", ", p3));
-            Console.WriteLine(string.Join(", ", p4));
-            Console.WriteLine(string.Join(", ", p5));
+            Console.WriteLine($"Contains 'ei': {q1}");
+            foreach (var g in q2) Console.WriteLine($"Category {g.Key} has out of stock");
+            foreach (var g in q3) Console.WriteLine($"Category {g.Key} all in stock");
             #endregion
 
 
