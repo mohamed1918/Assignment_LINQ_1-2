@@ -61,17 +61,31 @@
             #endregion
 
             #region Set Operators
-            var s1 = products.Select(p => p.Category).Distinct();
-            var s2 = products.Select(p => p.ProductName[0]).Union(customers.Select(c => c.CustomerName[0]));
-            var s3 = products.Select(p => p.ProductName[0]).Intersect(customers.Select(c => c.CustomerName[0]));
-            var s4 = products.Select(p => p.ProductName[0]).Except(customers.Select(c => c.CustomerName[0]));
-            var s5 = products.Select(p => p.ProductName[^3..]).Concat(customers.Select(c => c.CustomerName[^3..]));
+            //var s1 = products.Select(p => p.Category).Distinct();
+            //var s2 = products.Select(p => p.ProductName[0]).Union(customers.Select(c => c.CustomerName[0]));
+            //var s3 = products.Select(p => p.ProductName[0]).Intersect(customers.Select(c => c.CustomerName[0]));
+            //var s4 = products.Select(p => p.ProductName[0]).Except(customers.Select(c => c.CustomerName[0]));
+            //var s5 = products.Select(p => p.ProductName[^3..]).Concat(customers.Select(c => c.CustomerName[^3..]));
+
+            //Console.WriteLine(string.Join(", ", s1));
+            //Console.WriteLine(string.Join(", ", s2));
+            //Console.WriteLine(string.Join(", ", s3));
+            //Console.WriteLine(string.Join(", ", s4));
+            //Console.WriteLine(string.Join(", ", s5));
+            #endregion
+
+            #region Partitioning Operators
+            var p1 = customers.Where(c => c.Region == "du").SelectMany(c => c.Orders).Take(3);
+            var p2 = customers.Where(c => c.Region == "du").SelectMany(c => c.Orders).Skip(2);
+            var p3 = arrNumbers.TakeWhile((n, i) => n >= i);
+            var p4 = arrNumbers.SkipWhile(n => n % 3 != 0);
+            var p5 = arrNumbers.SkipWhile((n, i) => n >= i);
             
-            Console.WriteLine(string.Join(", ", s1));
-            Console.WriteLine(string.Join(", ", s2));
-            Console.WriteLine(string.Join(", ", s3));
-            Console.WriteLine(string.Join(", ", s4));
-            Console.WriteLine(string.Join(", ", s5));
+            Console.WriteLine(string.Join(", ", p1.Select(o => o.OrderID)));
+            Console.WriteLine(string.Join(", ", p2.Select(o => o.OrderID)));
+            Console.WriteLine(string.Join(", ", p3));
+            Console.WriteLine(string.Join(", ", p4));
+            Console.WriteLine(string.Join(", ", p5));
             #endregion
 
 
