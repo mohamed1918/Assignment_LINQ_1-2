@@ -45,19 +45,33 @@
             #endregion
 
             #region Aggregate Operators
-            var a1 = arrNumbers.Count(n => n % 2 != 0);
-            var a2 = customers.Select(c => new { c.CustomerName, Orders = c.Orders.Count() });
-            var a3 = products.GroupBy(p => p.Category).Select(g => new { g.Key, Count = g.Count() });
-            var a4 = arrNumbers.Sum();
-            var a5 = dictionaryWords.Sum(w => w.Length);
-            var a6 = dictionaryWords.Min(w => w.Length);
-            var a7 = dictionaryWords.Max(w => w.Length);
-            var a8 = dictionaryWords.Average(w => w.Length);
+            //var a1 = arrNumbers.Count(n => n % 2 != 0);
+            //var a2 = customers.Select(c => new { c.CustomerName, Orders = c.Orders.Count() });
+            //var a3 = products.GroupBy(p => p.Category).Select(g => new { g.Key, Count = g.Count() });
+            //var a4 = arrNumbers.Sum();
+            //var a5 = dictionaryWords.Sum(w => w.Length);
+            //var a6 = dictionaryWords.Min(w => w.Length);
+            //var a7 = dictionaryWords.Max(w => w.Length);
+            //var a8 = dictionaryWords.Average(w => w.Length);
+
+            //Console.WriteLine($"Odd count: {a1}");
+            //foreach (var x in a2) Console.WriteLine($"{x.CustomerName}: {x.Orders}");
+            //foreach (var x in a3) Console.WriteLine($"{x.Key}: {x.Count}");
+            //Console.WriteLine($"Sum: {a4}, Total chars: {a5}, Min: {a6}, Max: {a7}, Avg: {a8:F2}");
+            #endregion
+
+            #region Set Operators
+            var s1 = products.Select(p => p.Category).Distinct();
+            var s2 = products.Select(p => p.ProductName[0]).Union(customers.Select(c => c.CustomerName[0]));
+            var s3 = products.Select(p => p.ProductName[0]).Intersect(customers.Select(c => c.CustomerName[0]));
+            var s4 = products.Select(p => p.ProductName[0]).Except(customers.Select(c => c.CustomerName[0]));
+            var s5 = products.Select(p => p.ProductName[^3..]).Concat(customers.Select(c => c.CustomerName[^3..]));
             
-            Console.WriteLine($"Odd count: {a1}");
-            foreach (var x in a2) Console.WriteLine($"{x.CustomerName}: {x.Orders}");
-            foreach (var x in a3) Console.WriteLine($"{x.Key}: {x.Count}");
-            Console.WriteLine($"Sum: {a4}, Total chars: {a5}, Min: {a6}, Max: {a7}, Avg: {a8:F2}");
+            Console.WriteLine(string.Join(", ", s1));
+            Console.WriteLine(string.Join(", ", s2));
+            Console.WriteLine(string.Join(", ", s3));
+            Console.WriteLine(string.Join(", ", s4));
+            Console.WriteLine(string.Join(", ", s5));
             #endregion
 
 
