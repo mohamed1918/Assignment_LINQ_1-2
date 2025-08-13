@@ -89,15 +89,24 @@
             #endregion
 
             #region Quantifiers
-            var q1 = dictionaryWords.Any(w => w.Contains("ei"));
-            var q2 = products.GroupBy(p => p.Category).Where(g => g.Any(p => p.UnitsInStock == 0));
-            var q3 = products.GroupBy(p => p.Category).Where(g => g.All(p => p.UnitsInStock > 0));
-            
-            Console.WriteLine($"Contains 'ei': {q1}");
-            foreach (var g in q2) Console.WriteLine($"Category {g.Key} has out of stock");
-            foreach (var g in q3) Console.WriteLine($"Category {g.Key} all in stock");
+            //var q1 = dictionaryWords.Any(w => w.Contains("ei"));
+            //var q2 = products.GroupBy(p => p.Category).Where(g => g.Any(p => p.UnitsInStock == 0));
+            //var q3 = products.GroupBy(p => p.Category).Where(g => g.All(p => p.UnitsInStock > 0));
+
+            //Console.WriteLine($"Contains 'ei': {q1}");
+            //foreach (var g in q2) Console.WriteLine($"Category {g.Key} has out of stock");
+            //foreach (var g in q3) Console.WriteLine($"Category {g.Key} all in stock");
             #endregion
 
+            #region Grouping Operators
+            var g1 = Enumerable.Range(0, 16).GroupBy(n => n % 5);
+            var g2 = dictionaryWords.GroupBy(w => w[0]);
+            var g3 = new[] { "from", "salt", "earn", "last", "near", "form" }.GroupBy(w => string.Concat(w.OrderBy(c => c)));
+            
+            foreach (var grp in g1) Console.WriteLine($"Remainder {grp.Key}: {string.Join(", ", grp)}");
+            foreach (var grp in g2) Console.WriteLine($"{grp.Key}: {string.Join(", ", grp)}");
+            foreach (var grp in g3) Console.WriteLine($"Anagram group: {string.Join(", ", grp)}");
+            #endregion
 
         }
     }
